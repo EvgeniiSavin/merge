@@ -4,9 +4,14 @@
  */
 package merge;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -21,10 +26,11 @@ public class Merge {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Path to file
         String listMail1 = "listMail1.txt";
         String listMail2 = "listMail2.txt";
+        String mergeMailList = "mergeMailList.txt";
         
         //Specify variables
         Scanner readLineFromFile = null;
@@ -71,12 +77,24 @@ public class Merge {
         
         readLineFromFile.close();
         
-        
+        writeToFile(resultMergeMailList, mergeMailList);
         
         System.out.println(resultMergeMailList.toString());
         
         
     }
     
+    private static void writeToFile(ArrayList<String> arrayToWrite, String fileName) throws IOException {
+        FileWriter fileWriter = new FileWriter(fileName);
+        BufferedWriter writer = new BufferedWriter(fileWriter);
+        
+        for(String line:arrayToWrite) {
+            writer.write(line);
+            writer.newLine();
+        }
+        writer.close();
+        
+    }
     
 }
+
